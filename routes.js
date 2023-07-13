@@ -18,6 +18,18 @@ router.get("/", async function(req, res, next) {
   }
 });
 
+/** Show search results by name */
+
+router.get("/search", async function(req, res, next) {
+  const search = req.query.search
+  try {
+    const customers = await Customer.search(search);
+    return res.render("customer_list.html", { customers });
+  } catch (err) {
+    return next(err);
+  }
+});
+
 /** Form to add a new customer. */
 
 router.get("/add/", async function(req, res, next) {
